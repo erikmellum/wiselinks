@@ -4,7 +4,7 @@
   angular.module('application', [
     'ui.router',
     'ngAnimate',
-
+    'controllers',
     //foundation
     'foundation',
     'foundation.dynamicRouting',
@@ -27,8 +27,23 @@
     $locationProvider.hashPrefix('!');
   }
 
-  function run() {
+  function run($rootScope) {
     FastClick.attach(document.body);
+    Parse.initialize("cm1bcVNQrZJ1XCUKJSYIub7C2MqSxK8lzR5o9bCd", "1xbBZxRIRRV8Fc3HibtH6sOTnpmayA8lLNIC4BzW");
+    $rootScope.Message = Parse.Object.extend("Message", {
+      initialize: function (attrs, options) {
+        this.user = ""
+        this.contents = ""
+        this.image = ""
+        this.viewed = false;
+      }
+    });
+    $rootScope.currentUser = Parse.User.current();
+    if ($rootScope.currentUser) {
+        // do stuff with the user
+    } else {
+        // show the signup or login page
+    }
   }
 
 })();
